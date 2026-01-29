@@ -15,62 +15,63 @@
     }
 
     header {
-      padding: 60px 20px 30px;
+      padding: 70px 20px 40px;
       text-align: center;
     }
 
     header h1 {
       font-size: 3rem;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      font-weight: 600;
     }
 
     header p {
       color: #b7bbd9;
       font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto 25px;
     }
 
-    input {
-      margin-top: 20px;
+    input[type="text"] {
       width: 90%;
       max-width: 520px;
       padding: 14px;
       font-size: 1rem;
       border-radius: 8px;
       border: none;
+      outline: none;
     }
 
     main {
-      padding: 30px 20px 60px;
+      max-width: 900px;
+      margin: auto;
+      padding: 30px 20px 80px;
     }
 
     h2 {
       font-size: 1.4rem;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
 
     .card {
       background-color: #181c35;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 15px;
+      padding: 22px;
+      border-radius: 12px;
+      margin-bottom: 18px;
+    }
+
+    .card strong {
+      font-size: 1.05rem;
     }
 
     a {
       color: #9aa3ff;
       text-decoration: none;
+      font-size: 0.95rem;
     }
 
     a:hover {
       text-decoration: underline;
-    }
-
-    ul {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    li {
-      margin-bottom: 8px;
     }
   </style>
 </head>
@@ -80,7 +81,12 @@
 <header>
   <h1>Enkyclo</h1>
   <p>A modern, searchable encyclopedia of science, technology, and the future.</p>
-  <input id="searchInput" type="text" placeholder="Search Enkyclo articles">
+
+  <input
+    type="text"
+    placeholder="Search Enkyclo articles"
+    onkeydown="if(event.key==='Enter'){window.location.href='search.html?q='+encodeURIComponent(this.value)}"
+  />
 </header>
 
 <main>
@@ -102,35 +108,7 @@
     <a href="articles/space-exploration.html">Read article</a>
   </div>
 
-  <h2>Search results</h2>
-  <ul id="results"></ul>
-
 </main>
-
-<script>
-  const articles = [
-    { title: "Future Transportation", url: "articles/future-transportation.html" },
-    { title: "Artificial Intelligence", url: "articles/artificial-intelligence.html" },
-    { title: "Space Exploration", url: "articles/space-exploration.html" }
-  ];
-
-  const input = document.getElementById("searchInput");
-  const results = document.getElementById("results");
-
-  input.addEventListener("input", () => {
-    const q = input.value.toLowerCase();
-    results.innerHTML = "";
-    if (!q) return;
-
-    articles
-      .filter(a => a.title.toLowerCase().includes(q))
-      .forEach(a => {
-        const li = document.createElement("li");
-        li.innerHTML = `<a href="${a.url}">${a.title}</a>`;
-        results.appendChild(li);
-      });
-  });
-</script>
 
 </body>
 </html>
