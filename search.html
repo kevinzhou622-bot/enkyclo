@@ -1,1 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Search — Enkyclo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background-color: #0f1220;
+      color: #e6e8f0;
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 60px 20px 30px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 90%;
+      max-width: 520px;
+      padding: 14px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+    }
+
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 30px 20px 60px;
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    li {
+      margin-bottom: 14px;
+    }
+
+    a {
+      color: #9aa3ff;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Search Enkyclo</h1>
+  <input id="searchInput" type="text" placeholder="Search articles">
+</header>
+
+<main>
+  <ul id="results"></ul>
+</main>
+
+<script>
+  // Article index (this will grow to hundreds / thousands)
+  const articles = [
+    { title: "Future Transportation", url: "articles/future-transportation.html" },
+    { title: "Artificial Intelligence", url: "articles/artificial-intelligence.html" },
+    { title: "Space Exploration", url: "articles/space-exploration.html" }
+  ];
+
+  const params = new URLSearchParams(window.location.search);
+  const input = document.getElementById("searchInput");
+  const results = document.getElementById("results");
+
+  input.value = params.get("q") || "";
+
+  function render(query) {
+    results.innerHTML = "";
+    if (!query) return;
+
+    articles
+      .filter(a => a.title.toLowerCase().includes(query.toLowerCase()))
+      .forEach(a => {
+        const li = document.createElement("li");
+        li.innerHTML = `<a href="${a.url}">${a.title}</a>`;
+        results.appendChild(li);
+      });
+  }
+
+  input.addEventListener("input", () => render(input.value));
+  render(input.value);
+</script>
+
+</body>
+</html>
