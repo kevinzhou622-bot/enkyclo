@@ -6,53 +6,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont;
-  background: #0f1220;
-  color: #e6e8f0;
-  line-height: 1.75;
-}
-
-header {
-  padding: 70px 20px 40px;
-  text-align: center;
-  border-bottom: 1px solid #222653;
-}
-
-header h1 {
-  font-size: 2.6rem;
-  margin-bottom: 12px;
-}
-
-header p {
-  max-width: 760px;
-  margin: auto;
-  color: #b7bbd9;
-}
-
-main {
-  max-width: 860px;
-  margin: auto;
-  padding: 50px 20px 100px;
-}
-
-section {
-  margin-bottom: 48px;
-}
-
-h2 {
-  font-size: 1.5rem;
-  border-left: 4px solid #4f6bff;
-  padding-left: 12px;
-}
-
-footer {
-  text-align: center;
-  padding: 40px;
-  color: #8c90b8;
-  border-top: 1px solid #222653;
-}
+body{margin:0;font-family:system-ui;background:#0f1220;color:#e6e8f0;line-height:1.75}
+header{text-align:center;padding:70px 20px 40px;border-bottom:1px solid #222653}
+main{max-width:860px;margin:auto;padding:50px 20px 100px}
+section{margin-bottom:48px}
+h1{font-size:2.6rem}
+h2{border-left:4px solid #4f6bff;padding-left:12px}
+footer{text-align:center;padding:40px;color:#8c90b8;border-top:1px solid #222653}
 </style>
 </head>
 
@@ -60,44 +20,38 @@ footer {
 
 <header>
   <h1 id="title">Loading…</h1>
-  <p id="description"></p>
+  <p id="desc"></p>
 </header>
 
 <main id="content"></main>
 
 <footer>© Enkyclo</footer>
 
-<!-- IMPORTANT: data first -->
 <script src="data/articles.js"></script>
-
 <script>
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+const id = new URLSearchParams(window.location.search).get("id");
+const t = document.getElementById("title");
+const d = document.getElementById("desc");
+const c = document.getElementById("content");
 
-const titleEl = document.getElementById("title");
-const descEl = document.getElementById("description");
-const contentEl = document.getElementById("content");
+if(!id || !ARTICLES[id]){
+  t.innerText = "Article Not Found";
+  d.innerText = "This topic has not been written yet.";
+}else{
+  const a = ARTICLES[id];
+  document.title = a.title + " — Enkyclo";
+  t.innerText = a.title;
+  d.innerText = a.description || "";
 
-if (!id || typeof ARTICLES === "undefined" || !ARTICLES[id]) {
-  titleEl.innerText = "Article Not Found";
-  descEl.innerText = "This topic has not been written yet.";
-} else {
-  const article = ARTICLES[id];
-
-  titleEl.innerText = article.title;
-  descEl.innerText = article.description || "";
-
-  article.sections.forEach(sec => {
-    const section = document.createElement("section");
-    section.innerHTML = `<h2>${sec.heading}</h2>`;
-
-    sec.paragraphs.forEach(text => {
-      const p = document.createElement("p");
-      p.innerText = text;
-      section.appendChild(p);
+  a.sections.forEach(sec=>{
+    const s = document.createElement("section");
+    s.innerHTML = `<h2>${sec.heading}</h2>`;
+    sec.paragraphs.forEach(p=>{
+      const para = document.createElement("p");
+      para.innerText = p;
+      s.appendChild(para);
     });
-
-    contentEl.appendChild(section);
+    c.appendChild(s);
   });
 }
 </script>
