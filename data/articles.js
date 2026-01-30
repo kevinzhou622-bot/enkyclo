@@ -4,7 +4,26 @@ const ARTICLES = {
     title: "Artificial Intelligence",
     description:
       "Artificial intelligence is the field concerned with building machines capable of performing tasks that normally require human intelligence, such as perception, learning, reasoning, and language use.",
-    keywords: ["ai", "artificial intelligence", "chatbot", "machine learning", "automation"],
+    keywords: [
+  "ai",
+  "artificial intelligence",
+  "machine learning",
+  "deep learning",
+  "neural networks",
+  "chatbot",
+  "chatbots",
+  "language model",
+  "large language model",
+  "llm",
+  "automation",
+  "intelligent systems",
+  "pattern recognition",
+  "data driven models",
+  "computer intelligence",
+  "ai systems",
+  "generative ai",
+  "text generation"
+],
     sections: [
 
       {
@@ -70,7 +89,23 @@ const ARTICLES = {
     title: "Artificial General Intelligence",
     description:
       "Artificial General Intelligence (AGI) refers to hypothetical systems capable of flexible, general-purpose reasoning comparable to human intelligence.",
-    keywords: ["agi", "general intelligence", "alignment", "superintelligence", "chatbot"],
+    keywords: [
+  "agi",
+  "artificial general intelligence",
+  "general intelligence",
+  "human level ai",
+  "superintelligence",
+  "strong ai",
+  "alignment",
+  "ai alignment",
+  "cognition",
+  "autonomous agents",
+  "world models",
+  "recursive self improvement",
+  "long term ai risk",
+  "existential risk",
+  "general reasoning"
+],
     sections: [
 
       {
@@ -125,7 +160,23 @@ const ARTICLES = {
     title: "Quantum Computing",
     description:
       "Quantum computing is an approach to computation that uses quantum mechanical phenomena to process information.",
-    keywords: ["quantum computing", "qubits", "physics", "algorithms"],
+    keywords: [
+  "quantum",
+  "quantum computing",
+  "quantum computer",
+  "qubit",
+  "qubits",
+  "superposition",
+  "entanglement",
+  "quantum mechanics",
+  "quantum algorithms",
+  "shor algorithm",
+  "grover algorithm",
+  "quantum information",
+  "quantum physics",
+  "quantum hardware",
+  "quantum error correction"
+],
     sections: [
 
       {
@@ -171,7 +222,24 @@ const ARTICLES = {
     title: "Space Travel",
     description:
       "Space travel refers to the technological capability to operate beyond Earth’s atmosphere.",
-    keywords: ["space travel", "rockets", "exploration", "civilization"],
+    keywords: [
+  "space",
+  "space travel",
+  "spaceflight",
+  "rockets",
+  "rocket science",
+  "space exploration",
+  "human spaceflight",
+  "mars",
+  "moon",
+  "lunar missions",
+  "deep space",
+  "spacecraft",
+  "reusable rockets",
+  "satellites",
+  "interplanetary travel",
+  "space civilization"
+],
     sections: [
 
       {
@@ -217,7 +285,24 @@ const ARTICLES = {
     title: "Future Energy Systems",
     description:
       "Future energy systems aim to provide reliable power while minimizing environmental impact.",
-    keywords: ["energy systems", "renewables", "grid", "infrastructure"],
+    keywords: [
+  "energy",
+  "future energy",
+  "energy systems",
+  "renewable energy",
+  "solar power",
+  "wind power",
+  "energy grid",
+  "smart grid",
+  "power infrastructure",
+  "decarbonization",
+  "climate energy",
+  "battery storage",
+  "energy transition",
+  "clean energy",
+  "electric grid",
+  "energy technology"
+],
     sections: [
 
       {
