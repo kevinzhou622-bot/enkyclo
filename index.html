@@ -1,23 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Enkyclo Debug</title>
+  <meta charset="UTF-8" />
+  <title>Enkyclo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #0f1220;
+      color: #e6e8f0;
+    }
+
+    header {
+      padding: 100px 20px 70px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+
+    p {
+      max-width: 720px;
+      margin: 0 auto 40px;
+      color: #b7bbd9;
+      font-size: 1.1rem;
+    }
+
+    input {
+      width: 90%;
+      max-width: 560px;
+      padding: 16px;
+      font-size: 1.05rem;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 0.85rem;
+      color: #8c90b8;
+      border-top: 1px solid #222653;
+    }
+  </style>
 </head>
+
 <body>
 
-<h1>Enkyclo Debug Homepage</h1>
+<header>
+  <h1>Enkyclo</h1>
+  <p>
+    A curated encyclopedia of science, technology, and the future.
+  </p>
 
-<input id="searchInput" placeholder="type and press enter">
+  <form id="searchForm">
+    <input
+      id="searchInput"
+      type="search"
+      placeholder="Search ideas, concepts, systems"
+      autocomplete="off"
+    />
+  </form>
+</header>
+
+<footer>
+  © Enkyclo
+</footer>
 
 <script>
+  const form = document.getElementById("searchForm");
   const input = document.getElementById("searchInput");
 
-  input.addEventListener("keydown", function (e) {
-    if (e.key === "Enter") {
-      alert("Redirecting with query: " + input.value);
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const query = input.value.trim();
+    if (query) {
       window.location.href =
-        "search.html?q=" + encodeURIComponent(input.value);
+        "search.html?q=" + encodeURIComponent(query);
     }
   });
 </script>
