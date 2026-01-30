@@ -14,7 +14,7 @@
     }
 
     header {
-      padding: 100px 20px 70px;
+      padding: 100px 20px 50px;
       text-align: center;
     }
 
@@ -26,7 +26,7 @@
 
     p {
       max-width: 720px;
-      margin: 0 auto 40px;
+      margin: 0 auto 30px;
       color: #b7bbd9;
       font-size: 1.1rem;
     }
@@ -39,6 +39,27 @@
       border-radius: 10px;
       border: none;
       outline: none;
+    }
+
+    .suggestions {
+      margin-top: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .suggestions a {
+      padding: 10px 16px;
+      border-radius: 20px;
+      background: #171a3a;
+      color: #9aa3ff;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .suggestions a:hover {
+      background: #1f2350;
     }
 
     footer {
@@ -67,6 +88,14 @@
       autocomplete="off"
     />
   </form>
+
+  <div class="suggestions">
+    <a href="article.html?id=artificial-intelligence">Artificial Intelligence</a>
+    <a href="article.html?id=quantum-computing">Quantum Computing</a>
+    <a href="article.html?id=future-energy-systems">Future Energy Systems</a>
+    <a href="article.html?id=space-travel">Space Travel</a>
+    <a href="article.html?id=artificial-general-intelligence">AGI</a>
+  </div>
 </header>
 
 <footer>
