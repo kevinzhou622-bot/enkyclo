@@ -95,34 +95,30 @@
       return;
     }
 
-    if (!window.ARTICLES) {
-      results.innerHTML =
-        "<li class='meta'>Error loading knowledge base.</li>";
-      return;
-    }
-
     const q = query.toLowerCase();
     let found = false;
 
-    Object.entries(ARTICLES).forEach(([id, article]) => {
-      const text = (
-        article.title +
-        " " +
-        (article.keywords || []).join(" ")
-      ).toLowerCase();
+    if (window.ARTICLES) {
+      Object.entries(ARTICLES).forEach(([id, article]) => {
+        const text = (
+          article.title +
+          " " +
+          (article.keywords || []).join(" ")
+        ).toLowerCase();
 
-      if (text.includes(q)) {
-        found = true;
-        const li = document.createElement("li");
-        li.innerHTML = `
-          <a href="article.html?id=${id}">
-            ${article.title}
-          </a>
-          <div class="meta">${(article.keywords || []).join(", ")}</div>
-        `;
-        results.appendChild(li);
-      }
-    });
+        if (text.includes(q)) {
+          found = true;
+          const li = document.createElement("li");
+          li.innerHTML = `
+            <a href="article.html?id=${id}">
+              ${article.title}
+            </a>
+            <div class="meta">${(article.keywords || []).join(", ")}</div>
+          `;
+          results.appendChild(li);
+        }
+      });
+    }
 
     if (!found) {
       results.innerHTML =
