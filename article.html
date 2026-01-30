@@ -4,84 +4,31 @@
 <meta charset="UTF-8">
 <title>Article — Enkyclo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
-body{
-  margin:0;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:#0f1220;
-  color:#e6e8f0;
-  line-height:1.75;
-}
-
-header{
-  padding:70px 20px 40px;
-  text-align:center;
-  border-bottom:1px solid #222653;
-}
-
-header h1{
-  font-size:2.8rem;
-  margin-bottom:14px;
-}
-
-header p{
-  max-width:760px;
-  margin:auto;
-  color:#b7bbd9;
-}
-
-main{
-  max-width:860px;
-  margin:auto;
-  padding:50px 20px 100px;
-}
-
-section{
-  margin-bottom:55px;
-}
-
-h2{
-  font-size:1.6rem;
-  border-left:4px solid #4f6bff;
-  padding-left:12px;
-}
-
-p{
-  margin-bottom:16px;
-}
-
-.note{
-  background:#171a3a;
-  border-left:4px solid #4f6bff;
-  padding:18px;
-  margin:30px 0;
-}
-
-footer{
-  text-align:center;
-  padding:40px;
-  color:#8c90b8;
-  border-top:1px solid #222653;
-}
+body{margin:0;font-family:system-ui;background:#0f1220;color:#e6e8f0;line-height:1.75}
+header{padding:70px 20px 40px;text-align:center;border-bottom:1px solid #222653}
+header h1{font-size:2.8rem;margin-bottom:14px}
+header p{max-width:760px;margin:auto;color:#b7bbd9}
+main{max-width:860px;margin:auto;padding:50px 20px 100px}
+section{margin-bottom:55px}
+h2{font-size:1.6rem;border-left:4px solid #4f6bff;padding-left:12px}
+p{margin-bottom:16px}
+.note{background:#171a3a;border-left:4px solid #4f6bff;padding:18px;margin:30px 0}
+footer{text-align:center;padding:40px;color:#8c90b8;border-top:1px solid #222653}
 </style>
 </head>
-
 <body>
 
 <header>
-  <h1 id="title">Loading…</h1>
-  <p id="subtitle"></p>
+<h1 id="title">Loading…</h1>
+<p id="subtitle"></p>
 </header>
 
 <main id="content"></main>
 
 <footer>© Enkyclo</footer>
 
-<!-- ARTICLE DATA -->
 <script src="data/articles.js"></script>
-
-<!-- ARTICLE RENDERER -->
 <script>
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
@@ -89,40 +36,25 @@ const id = params.get("id");
 const article = ARTICLES[id];
 
 if (!article) {
-  document.getElementById("title").textContent = "Article Not Found";
-  document.getElementById("subtitle").textContent =
+  document.getElementById("title").innerText = "Article Not Found";
+  document.getElementById("subtitle").innerText =
     "This topic has not been written yet.";
   document.getElementById("content").innerHTML =
     "<p>Enkyclo is expanding continuously. Check back soon.</p>";
 } else {
   document.title = article.title + " — Enkyclo";
-  document.getElementById("title").textContent = article.title;
-  document.getElementById("subtitle").textContent =
-    "Enkyclo — Advanced reference on science, AI, and the future";
+  document.getElementById("title").innerText = article.title;
+  document.getElementById("subtitle").innerText =
+    article.keywords.join(" · ");
 
-  const container = document.getElementById("content");
-
-  article.sections.forEach(section => {
-    const sec = document.createElement("section");
-
-    const h2 = document.createElement("h2");
-    h2.textContent = section.heading;
-    sec.appendChild(h2);
-
-    section.paragraphs.forEach(text => {
-      const p = document.createElement("p");
-      p.textContent = text;
-      sec.appendChild(p);
-    });
-
-    container.appendChild(sec);
+  const main = document.getElementById("content");
+  article.sections.forEach(sec => {
+    const section = document.createElement("section");
+    section.innerHTML =
+      `<h2>${sec.heading}</h2>` +
+      sec.paragraphs.map(p => `<p>${p}</p>`).join("");
+    main.appendChild(section);
   });
-
-  const note = document.createElement("div");
-  note.className = "note";
-  note.textContent =
-    "Enkyclo articles prioritize depth, structure, and forward-looking analysis.";
-  container.appendChild(note);
 }
 </script>
 
