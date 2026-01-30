@@ -1,112 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Enkyclo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<title>Enkyclo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #0f1220;
-      color: #e6e8f0;
-    }
-
-    header {
-      padding: 100px 20px 50px;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 16px;
-      font-weight: 600;
-    }
-
-    p {
-      max-width: 720px;
-      margin: 0 auto 30px;
-      color: #b7bbd9;
-      font-size: 1.1rem;
-    }
-
-    input {
-      width: 90%;
-      max-width: 560px;
-      padding: 16px;
-      font-size: 1.05rem;
-      border-radius: 10px;
-      border: none;
-      outline: none;
-    }
-
-    .suggestions {
-      margin-top: 30px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .suggestions a {
-      padding: 10px 16px;
-      border-radius: 20px;
-      background: #171a3a;
-      color: #9aa3ff;
-      text-decoration: none;
-      font-size: 0.95rem;
-    }
-
-    .suggestions a:hover {
-      background: #1f2350;
-    }
-
-    footer {
-      text-align: center;
-      padding: 40px 20px;
-      font-size: 0.85rem;
-      color: #8c90b8;
-      border-top: 1px solid #222653;
-    }
-  </style>
+<style>
+body{margin:0;font-family:system-ui;background:#0f1220;color:#e6e8f0}
+header{text-align:center;padding:90px 20px 60px}
+h1{font-size:3rem;margin-bottom:12px}
+p{color:#b7bbd9;max-width:700px;margin:auto}
+input{margin-top:30px;padding:16px;width:90%;max-width:520px;font-size:1rem;border-radius:8px;border:none}
+.suggestions{margin-top:40px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.suggestions a{padding:10px 16px;border-radius:20px;background:#171a3a;color:#9aa3ff;text-decoration:none}
+footer{text-align:center;padding:40px;color:#8c90b8;border-top:1px solid #222653}
+</style>
 </head>
 
 <body>
 
 <header>
   <h1>Enkyclo</h1>
-  <p>A curated encyclopedia of science, technology, and the future.</p>
+  <p>A curated encyclopedia of intelligence, science, and the future.</p>
 
-  <form id="searchForm">
-    <input
-      id="searchInput"
-      type="search"
-      placeholder="Search ideas, concepts, systems"
-      autocomplete="off"
-    />
+  <form action="search.html">
+    <input name="q" placeholder="Search Enkyclo…" />
   </form>
 
   <div class="suggestions">
     <a href="article.html?id=artificial-intelligence">Artificial Intelligence</a>
-    <a href="article.html?id=quantum-computing">Quantum Computing</a>
-    <a href="article.html?id=future-energy-systems">Future Energy Systems</a>
-    <a href="article.html?id=space-travel">Space Travel</a>
     <a href="article.html?id=artificial-general-intelligence">Artificial General Intelligence</a>
+    <a href="article.html?id=quantum-computing">Quantum Computing</a>
+    <a href="article.html?id=space-travel">Space Travel</a>
+    <a href="article.html?id=future-energy-systems">Future Energy Systems</a>
   </div>
 </header>
 
 <footer>© Enkyclo</footer>
-
-<script>
-  document.getElementById("searchForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    const q = document.getElementById("searchInput").value.trim();
-    if (q) {
-      window.location.href = "search.html?q=" + encodeURIComponent(q);
-    }
-  });
-</script>
 
 </body>
 </html>
