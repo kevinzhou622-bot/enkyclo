@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Search — Enkyclo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
     body {
       margin: 0;
-      font-family: system-ui, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background-color: #0f1220;
       color: #e6e8f0;
-      line-height: 1.6;
     }
 
     header {
       padding: 60px 20px 30px;
       text-align: center;
+      border-bottom: 1px solid #222653;
     }
 
     header h1 {
       font-size: 2.2rem;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     input {
@@ -37,7 +37,7 @@
     main {
       max-width: 900px;
       margin: auto;
-      padding: 30px 20px 60px;
+      padding: 40px 20px 80px;
     }
 
     ul {
@@ -52,11 +52,16 @@
     a {
       color: #9aa3ff;
       text-decoration: none;
-      font-size: 1rem;
+      font-size: 1.05rem;
     }
 
     a:hover {
       text-decoration: underline;
+    }
+
+    .meta {
+      font-size: 0.85rem;
+      color: #aab0ff;
     }
   </style>
 </head>
@@ -65,7 +70,7 @@
 
 <header>
   <h1>Search Enkyclo</h1>
-  <input id="searchInput" type="text" placeholder="Search articles">
+  <input id="searchInput" type="text" placeholder="Search topics, keywords, concepts">
 </header>
 
 <main>
@@ -73,38 +78,84 @@
 </main>
 
 <script>
-  // Article index (this will grow to hundreds / thousands)
+  // =========================
+  // ARTICLE INDEX (EDIT HERE)
+  // =========================
   const articles = [
     {
-  title: "Artificial Intelligence",
-  url: "articles/artificial-intelligence.html",
-  keywords: ["ai", "artificial intelligence", "machine learning", "neural networks"]
-}
-    { title: "Artificial Intelligence", url: "articles/artificial-intelligence.html" },
-    { title: "Space Exploration", url: "articles/space-exploration.html" }
+      title: "Artificial Intelligence",
+      url: "articles/artificial-intelligence.html",
+      keywords: [
+        "ai",
+        "machine learning",
+        "neural networks",
+        "intelligence",
+        "automation",
+        "algorithms"
+      ]
+    },
+    {
+      title: "Future Transportation",
+      url: "articles/future-transportation.html",
+      keywords: [
+        "transport",
+        "autonomous vehicles",
+        "self driving",
+        "mobility",
+        "ev",
+        "infrastructure"
+      ]
+    },
+    {
+      title: "Space Travel",
+      url: "articles/space-travel.html",
+      keywords: [
+        "space",
+        "rockets",
+        "mars",
+        "interstellar",
+        "spacecraft",
+        "astronauts"
+      ]
+    }
   ];
 
+  // =========================
+  // SEARCH LOGIC
+  // =========================
   const params = new URLSearchParams(window.location.search);
   const input = document.getElementById("searchInput");
   const results = document.getElementById("results");
 
-  input.value = params.get("q") || "";
+  const initialQuery = params.get("q") || "";
+  input.value = initialQuery;
+
+  function matches(article, query) {
+    const q = query.toLowerCase();
+    return (
+      article.title.toLowerCase().includes(q) ||
+      article.keywords.some(k => k.toLowerCase().includes(q))
+    );
+  }
 
   function render(query) {
     results.innerHTML = "";
     if (!query) return;
 
     articles
-      .filter(a => a.title.toLowerCase().includes(query.toLowerCase()))
+      .filter(a => matches(a, query))
       .forEach(a => {
         const li = document.createElement("li");
-        li.innerHTML = `<a href="${a.url}">${a.title}</a>`;
+        li.innerHTML = `
+          <a href="${a.url}">${a.title}</a>
+          <div class="meta">${a.keywords.join(", ")}</div>
+        `;
         results.appendChild(li);
       });
   }
 
   input.addEventListener("input", () => render(input.value));
-  render(input.value);
+  render(initialQuery);
 </script>
 
 </body>
