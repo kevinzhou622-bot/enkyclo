@@ -46,7 +46,7 @@
     }
 
     li {
-      margin-bottom: 14px;
+      margin-bottom: 18px;
     }
 
     a {
@@ -70,7 +70,11 @@
 
 <header>
   <h1>Search Enkyclo</h1>
-  <input id="searchInput" type="text" placeholder="Search topics, keywords, concepts">
+  <input
+    id="searchInput"
+    type="text"
+    placeholder="Search topics, concepts, keywords"
+  />
 </header>
 
 <main>
@@ -79,7 +83,7 @@
 
 <script>
   // =========================
-  // ARTICLE INDEX (EDIT HERE)
+  // ARTICLE INDEX
   // =========================
   const articles = [
     {
@@ -87,11 +91,24 @@
       url: "articles/artificial-intelligence.html",
       keywords: [
         "ai",
+        "artificial intelligence",
         "machine learning",
         "neural networks",
-        "intelligence",
         "automation",
         "algorithms"
+      ]
+    },
+    {
+      title: "Quantum Computing",
+      url: "articles/quantum-computing.html",
+      keywords: [
+        "quantum",
+        "qubits",
+        "quantum mechanics",
+        "quantum algorithms",
+        "quantum ai",
+        "superposition",
+        "entanglement"
       ]
     },
     {
@@ -99,10 +116,10 @@
       url: "articles/future-transportation.html",
       keywords: [
         "transport",
+        "mobility",
         "autonomous vehicles",
         "self driving",
-        "mobility",
-        "ev",
+        "electric vehicles",
         "infrastructure"
       ]
     },
@@ -112,23 +129,12 @@
       keywords: [
         "space",
         "rockets",
+        "spacecraft",
         "mars",
         "interstellar",
-        "spacecraft",
         "astronauts"
       ]
-    },
-    {
-  title: "Quantum Computing",
-  url: "articles/quantum-computing.html",
-  keywords: [
-    "quantum",
-    "qubits",
-    "quantum algorithms",
-    "quantum mechanics",
-    "quantum ai"
-  ]
-}
+    }
   ];
 
   // =========================
