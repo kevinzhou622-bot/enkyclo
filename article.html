@@ -6,35 +6,52 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body{
-  margin:0;
-  font-family:system-ui;
-  background:#0f1220;
-  color:#e6e8f0;
-  line-height:1.75;
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont;
+  background: #0f1220;
+  color: #e6e8f0;
+  line-height: 1.75;
 }
-header{
-  padding:70px 20px 40px;
-  text-align:center;
-  border-bottom:1px solid #222653;
+
+header {
+  padding: 70px 20px 40px;
+  text-align: center;
+  border-bottom: 1px solid #222653;
 }
-main{
-  max-width:860px;
-  margin:auto;
-  padding:50px 20px 100px;
+
+header h1 {
+  font-size: 2.6rem;
+  margin-bottom: 12px;
 }
-section{margin-bottom:48px}
-h1{font-size:2.6rem}
-h2{
-  font-size:1.5rem;
-  border-left:4px solid #4f6bff;
-  padding-left:12px;
+
+header p {
+  max-width: 760px;
+  margin: auto;
+  color: #b7bbd9;
 }
-footer{
-  text-align:center;
-  padding:40px;
-  color:#8c90b8;
-  border-top:1px solid #222653;
+
+main {
+  max-width: 860px;
+  margin: auto;
+  padding: 50px 20px 100px;
+}
+
+section {
+  margin-bottom: 48px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  border-left: 4px solid #4f6bff;
+  padding-left: 12px;
+}
+
+footer {
+  text-align: center;
+  padding: 40px;
+  color: #8c90b8;
+  border-top: 1px solid #222653;
 }
 </style>
 </head>
@@ -50,33 +67,37 @@ footer{
 
 <footer>© Enkyclo</footer>
 
-<!-- IMPORTANT: correct path -->
+<!-- IMPORTANT: data first -->
 <script src="data/articles.js"></script>
 
 <script>
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
-if (!id || !ARTICLES[id]) {
-  document.getElementById("title").innerText = "Article Not Found";
-  document.getElementById("description").innerText =
-    "This topic has not been written yet.";
+const titleEl = document.getElementById("title");
+const descEl = document.getElementById("description");
+const contentEl = document.getElementById("content");
+
+if (!id || typeof ARTICLES === "undefined" || !ARTICLES[id]) {
+  titleEl.innerText = "Article Not Found";
+  descEl.innerText = "This topic has not been written yet.";
 } else {
   const article = ARTICLES[id];
-  document.getElementById("title").innerText = article.title;
-  document.getElementById("description").innerText = article.description || "";
 
-  const main = document.getElementById("content");
+  titleEl.innerText = article.title;
+  descEl.innerText = article.description || "";
 
   article.sections.forEach(sec => {
-    const s = document.createElement("section");
-    s.innerHTML = `<h2>${sec.heading}</h2>`;
-    sec.paragraphs.forEach(p => {
-      const para = document.createElement("p");
-      para.innerText = p;
-      s.appendChild(para);
+    const section = document.createElement("section");
+    section.innerHTML = `<h2>${sec.heading}</h2>`;
+
+    sec.paragraphs.forEach(text => {
+      const p = document.createElement("p");
+      p.innerText = text;
+      section.appendChild(p);
     });
-    main.appendChild(s);
+
+    contentEl.appendChild(section);
   });
 }
 </script>
