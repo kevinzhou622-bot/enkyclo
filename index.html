@@ -6,14 +6,87 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body{margin:0;font-family:system-ui;background:#0f1220;color:#e6e8f0}
-header{text-align:center;padding:90px 20px 60px}
-h1{font-size:3rem;margin-bottom:12px}
-p{color:#b7bbd9;max-width:700px;margin:auto}
-input{margin-top:30px;padding:16px;width:90%;max-width:520px;font-size:1rem;border-radius:8px;border:none}
-.suggestions{margin-top:40px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-.suggestions a{padding:10px 16px;border-radius:20px;background:#171a3a;color:#9aa3ff;text-decoration:none}
-footer{text-align:center;padding:40px;color:#8c90b8;border-top:1px solid #222653}
+body{
+  margin:0;
+  font-family:system-ui;
+  background:#0f1220;
+  color:#e6e8f0;
+  line-height:1.75;
+}
+
+header{
+  padding:80px 20px 60px;
+  text-align:center;
+  border-bottom:1px solid #222653;
+}
+
+h1{
+  font-size:3.2rem;
+  margin-bottom:12px;
+}
+
+header p{
+  max-width:760px;
+  margin:auto;
+  color:#b7bbd9;
+}
+
+form input{
+  margin-top:30px;
+  padding:16px;
+  width:90%;
+  max-width:520px;
+  font-size:1rem;
+  border-radius:8px;
+  border:none;
+}
+
+main{
+  max-width:900px;
+  margin:auto;
+  padding:60px 20px 120px;
+}
+
+.article{
+  margin-bottom:90px;
+  border-bottom:1px solid #222653;
+  padding-bottom:70px;
+}
+
+.article h2{
+  font-size:2.2rem;
+  margin-bottom:10px;
+}
+
+.article .desc{
+  color:#b7bbd9;
+  margin-bottom:30px;
+}
+
+.article h3{
+  margin-top:36px;
+  border-left:4px solid #4f6bff;
+  padding-left:12px;
+  font-size:1.4rem;
+}
+
+.article p{
+  margin-top:14px;
+}
+
+.readmore{
+  display:inline-block;
+  margin-top:30px;
+  color:#4f6bff;
+  text-decoration:none;
+}
+
+footer{
+  text-align:center;
+  padding:50px;
+  color:#8c90b8;
+  border-top:1px solid #222653;
+}
 </style>
 </head>
 
@@ -21,22 +94,54 @@ footer{text-align:center;padding:40px;color:#8c90b8;border-top:1px solid #222653
 
 <header>
   <h1>Enkyclo</h1>
-  <p>A curated encyclopedia of intelligence, science, and the future.</p>
+  <p>A future-focused encyclopedia of intelligence, science, and civilization.</p>
 
-  <form action="search.html">
-    <input name="q" placeholder="Search Enkyclo…" />
+  <form action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search Enkyclo…">
   </form>
-
-  <div class="suggestions">
-    <a href="article.html?id=artificial-intelligence">Artificial Intelligence</a>
-    <a href="article.html?id=artificial-general-intelligence">Artificial General Intelligence</a>
-    <a href="article.html?id=quantum-computing">Quantum Computing</a>
-    <a href="article.html?id=space-travel">Space Travel</a>
-    <a href="article.html?id=future-energy-systems">Future Energy Systems</a>
-  </div>
 </header>
 
+<main id="feed"></main>
+
 <footer>© Enkyclo</footer>
+
+<!-- Load article data -->
+<script src="data/articles.js"></script>
+
+<script>
+const feed = document.getElementById("feed");
+
+for (const id in ARTICLES) {
+  const a = ARTICLES[id];
+
+  const articleDiv = document.createElement("div");
+  articleDiv.className = "article";
+
+  articleDiv.innerHTML = `
+    <h2>${a.title}</h2>
+    <div class="desc">${a.description || ""}</div>
+  `;
+
+  a.sections.forEach(sec => {
+    const section = document.createElement("div");
+    section.innerHTML = `<h3>${sec.heading}</h3>`;
+    sec.paragraphs.forEach(text => {
+      const p = document.createElement("p");
+      p.innerText = text;
+      section.appendChild(p);
+    });
+    articleDiv.appendChild(section);
+  });
+
+  articleDiv.innerHTML += `
+    <a class="readmore" href="article.html?id=${id}">
+      Open dedicated article →
+    </a>
+  `;
+
+  feed.appendChild(articleDiv);
+}
+</script>
 
 </body>
 </html>
