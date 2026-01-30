@@ -76,9 +76,7 @@
 
 <header>
   <h1>Enkyclo</h1>
-  <p>
-    A curated encyclopedia of science, technology, and the future.
-  </p>
+  <p>A curated encyclopedia of science, technology, and the future.</p>
 
   <form id="searchForm">
     <input
@@ -94,24 +92,18 @@
     <a href="article.html?id=quantum-computing">Quantum Computing</a>
     <a href="article.html?id=future-energy-systems">Future Energy Systems</a>
     <a href="article.html?id=space-travel">Space Travel</a>
-    <a href="article.html?id=artificial-general-intelligence">AGI</a>
+    <a href="article.html?id=artificial-general-intelligence">Artificial General Intelligence</a>
   </div>
 </header>
 
-<footer>
-  © Enkyclo
-</footer>
+<footer>© Enkyclo</footer>
 
 <script>
-  const form = document.getElementById("searchForm");
-  const input = document.getElementById("searchInput");
-
-  form.addEventListener("submit", function (e) {
+  document.getElementById("searchForm").addEventListener("submit", function (e) {
     e.preventDefault();
-    const query = input.value.trim();
-    if (query) {
-      window.location.href =
-        "search.html?q=" + encodeURIComponent(query);
+    const q = document.getElementById("searchInput").value.trim();
+    if (q) {
+      window.location.href = "search.html?q=" + encodeURIComponent(q);
     }
   });
 </script>
