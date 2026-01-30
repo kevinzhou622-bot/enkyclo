@@ -21,7 +21,7 @@
 
     header h1 {
       font-size: 2.2rem;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
 
     input {
@@ -60,7 +60,7 @@
     }
 
     .meta {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       color: #aab0ff;
     }
   </style>
@@ -69,39 +69,35 @@
 <body>
 
 <header>
-  <h1>Search Enkyclo</h1>
-  <input
-    id="searchInput"
-    type="text"
-    placeholder="Search topics, concepts, ideas"
-  />
+  <h1>Search</h1>
+  <input id="searchInput" placeholder="Explore Enkyclo topics">
 </header>
 
 <main>
   <ul id="results"></ul>
 </main>
 
-<!-- LOAD ARTICLE DATA -->
 <script src="data/articles.js"></script>
-
 <script>
+  const params = new URLSearchParams(window.location.search);
   const input = document.getElementById("searchInput");
   const results = document.getElementById("results");
+
+  const initialQuery = params.get("q") || "";
+  input.value = initialQuery;
 
   function render(query) {
     results.innerHTML = "";
 
-    // Initial message
     if (!query) {
       results.innerHTML =
-        "<li class='meta'>Type to search Enkyclo.</li>";
+        "<li class='meta'>Enter a concept to explore Enkyclo.</li>";
       return;
     }
 
-    // Safety check
     if (!window.ARTICLES) {
       results.innerHTML =
-        "<li class='meta'>Error: articles not loaded.</li>";
+        "<li class='meta'>Error loading knowledge base.</li>";
       return;
     }
 
@@ -109,22 +105,20 @@
     let found = false;
 
     Object.entries(ARTICLES).forEach(([id, article]) => {
-      const searchableText = (
+      const text = (
         article.title +
         " " +
         (article.keywords || []).join(" ")
       ).toLowerCase();
 
-      if (searchableText.includes(q)) {
+      if (text.includes(q)) {
         found = true;
         const li = document.createElement("li");
         li.innerHTML = `
           <a href="article.html?id=${id}">
             ${article.title}
           </a>
-          <div class="meta">
-            ${(article.keywords || []).join(", ")}
-          </div>
+          <div class="meta">${(article.keywords || []).join(", ")}</div>
         `;
         results.appendChild(li);
       }
@@ -132,16 +126,12 @@
 
     if (!found) {
       results.innerHTML =
-        "<li class='meta'>No article exists yet. Enkyclo is curated and growing.</li>";
+        "<li class='meta'>No article exists yet. Enkyclo is curated and evolving.</li>";
     }
   }
 
-  input.addEventListener("input", e => {
-    render(e.target.value);
-  });
-
-  // Show initial hint
-  render("");
+  input.addEventListener("input", e => render(e.target.value));
+  render(initialQuery);
 </script>
 
 </body>
