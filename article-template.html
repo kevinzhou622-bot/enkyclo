@@ -1,18 +1,156 @@
-<article>
-  <h1>{{TITLE}}</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{ARTICLE TITLE}} — Enkyclo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: #0f1220;
+      color: #e6e8f0;
+      line-height: 1.75;
+    }
+
+    header {
+      padding: 70px 20px 40px;
+      text-align: center;
+      border-bottom: 1px solid #222653;
+    }
+
+    header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+
+    header p {
+      max-width: 760px;
+      margin: auto;
+      color: #b7bbd9;
+      font-size: 1.05rem;
+    }
+
+    main {
+      max-width: 860px;
+      margin: auto;
+      padding: 50px 20px 100px;
+    }
+
+    section {
+      margin-bottom: 55px;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-bottom: 14px;
+      border-left: 4px solid #4f6bff;
+      padding-left: 12px;
+    }
+
+    h3 {
+      font-size: 1.25rem;
+      margin-top: 22px;
+    }
+
+    p {
+      margin-bottom: 16px;
+      color: #d6d9f0;
+    }
+
+    ul {
+      margin-left: 20px;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    .note {
+      background: #171a3a;
+      border-left: 4px solid #4f6bff;
+      padding: 18px 20px;
+      margin: 30px 0;
+      color: #cfd4ff;
+      font-size: 0.95rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 0.85rem;
+      color: #8c90b8;
+      border-top: 1px solid #222653;
+    }
+
+    a {
+      color: #7aa2ff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>{{ARTICLE TITLE}}</h1>
+  <p>
+    {{ONE-SENTENCE DESCRIPTION OF THE TOPIC}}
+  </p>
+</header>
+
+<main>
 
   <section>
     <h2>Conceptual Overview</h2>
-    {{OVERVIEW}}
+    <p>
+      {{HIGH-LEVEL BUT PRECISE EXPLANATION OF THE TOPIC}}
+    </p>
   </section>
 
   <section>
     <h2>Technical Foundations</h2>
-    {{TECHNICAL}}
+    <p>
+      {{DETAILED TECHNICAL EXPLANATION — MECHANISMS, SYSTEMS, MODELS}}
+    </p>
+  </section>
+
+  <section>
+    <h2>Current Capabilities and Constraints</h2>
+    <p>
+      {{WHAT WORKS TODAY, WHAT DOES NOT, AND WHY}}
+    </p>
   </section>
 
   <section>
     <h2>Future Trajectories</h2>
-    {{FUTURE}}
+    <p>
+      {{PLAUSIBLE FUTURE DEVELOPMENTS, BOTTLENECKS, AND OPEN QUESTIONS}}
+    </p>
   </section>
-</article>
+
+  <section>
+    <h2>Broader Implications</h2>
+    <p>
+      {{IMPACT ON SOCIETY, SCIENCE, ECONOMICS, OR HUMAN LIFE}}
+    </p>
+  </section>
+
+  <div class="note">
+    {{OPTIONAL EDITORIAL NOTE OR FRAMING STATEMENT FOR ENKYCLO}}
+  </div>
+
+</main>
+
+<footer>
+  © Enkyclo — A Modern Encyclopedia of Science, Technology, and the Future
+</footer>
+
+</body>
+</html>
