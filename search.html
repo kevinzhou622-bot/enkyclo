@@ -8,7 +8,7 @@
   <style>
     body {
       margin: 0;
-      font-family: system-ui;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: #0f1220;
       color: #e6e8f0;
     }
@@ -60,7 +60,7 @@
     }
 
     .meta {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: #aab0ff;
     }
   </style>
@@ -70,57 +70,78 @@
 
 <header>
   <h1>Search Enkyclo</h1>
-  <input id="searchInput" type="text" placeholder="Search topics, concepts">
+  <input
+    id="searchInput"
+    type="text"
+    placeholder="Search topics, concepts, ideas"
+  />
 </header>
 
 <main>
   <ul id="results"></ul>
 </main>
 
+<!-- LOAD ARTICLE DATA -->
 <script src="data/articles.js"></script>
+
 <script>
   const input = document.getElementById("searchInput");
   const results = document.getElementById("results");
 
-function render(query) {
-  results.innerHTML = "";
-  if (!query) return;
+  function render(query) {
+    results.innerHTML = "";
 
-  const q = query.toLowerCase();
-  let found = false;
-
-  Object.entries(ARTICLES).forEach(([id, article]) => {
-    const text = (
-      article.title +
-      " " +
-      (article.keywords || []).join(" ")
-    ).toLowerCase();
-
-    if (text.includes(q)) {
-      found = true;
-      const li = document.createElement("li");
-      li.innerHTML = `
-        <a href="article.html?id=${id}">
-          ${article.title}
-        </a>
-        <div class="meta">${(article.keywords || []).join(", ")}</div>
-      `;
-      results.appendChild(li);
+    // Initial message
+    if (!query) {
+      results.innerHTML =
+        "<li class='meta'>Type to search Enkyclo.</li>";
+      return;
     }
+
+    // Safety check
+    if (!window.ARTICLES) {
+      results.innerHTML =
+        "<li class='meta'>Error: articles not loaded.</li>";
+      return;
+    }
+
+    const q = query.toLowerCase();
+    let found = false;
+
+    Object.entries(ARTICLES).forEach(([id, article]) => {
+      const searchableText = (
+        article.title +
+        " " +
+        (article.keywords || []).join(" ")
+      ).toLowerCase();
+
+      if (searchableText.includes(q)) {
+        found = true;
+        const li = document.createElement("li");
+        li.innerHTML = `
+          <a href="article.html?id=${id}">
+            ${article.title}
+          </a>
+          <div class="meta">
+            ${(article.keywords || []).join(", ")}
+          </div>
+        `;
+        results.appendChild(li);
+      }
+    });
+
+    if (!found) {
+      results.innerHTML =
+        "<li class='meta'>No article exists yet. Enkyclo is curated and growing.</li>";
+    }
+  }
+
+  input.addEventListener("input", e => {
+    render(e.target.value);
   });
 
-  if (!found) {
-    const li = document.createElement("li");
-    li.innerHTML = `
-      <div class="meta">
-        No article exists yet. Enkyclo is curated and growing.
-      </div>
-    `;
-    results.appendChild(li);
-  }
-}
-
-  input.addEventListener("input", e => render(e.target.value));
+  // Show initial hint
+  render("");
 </script>
 
 </body>
