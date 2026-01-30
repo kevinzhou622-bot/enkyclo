@@ -1,28 +1,21 @@
 const ARTICLES = {
-  "quantum-computing": {
-    title: "Quantum Computing",
-    description:
-      "A computational paradigm exploiting quantum mechanical phenomena to exceed classical limits.",
+  "artificial-intelligence": {
+    title: "Artificial Intelligence",
+    description: "Systems that perform tasks requiring human-level cognition.",
+    keywords: ["ai", "machine learning", "automation", "intelligence"],
     sections: [
       {
-        heading: "Conceptual Overview",
+        heading: "Overview",
         paragraphs: [
-          "Quantum computing encodes information using quantum states rather than binary bits.",
-          "Superposition and entanglement enable computational strategies without classical equivalents."
+          "Artificial intelligence refers to computational systems capable of perception, learning, reasoning, and decision-making.",
+          "Modern AI relies heavily on statistical learning and large-scale data."
         ]
       },
       {
-        heading: "Current Constraints",
+        heading: "Limits",
         paragraphs: [
-          "Noise, decoherence, and error rates limit present-day quantum systems.",
-          "Most devices operate in the noisy intermediate-scale quantum regime."
-        ]
-      },
-      {
-        heading: "Future Trajectories",
-        paragraphs: [
-          "Fault-tolerant architectures and hybrid quantum–classical algorithms are major research goals.",
-          "Advances in materials and control systems will determine scalability."
+          "Most current systems are narrow and task-specific.",
+          "General reasoning remains unsolved."
         ]
       }
     ]
@@ -30,21 +23,66 @@ const ARTICLES = {
 
   "artificial-general-intelligence": {
     title: "Artificial General Intelligence",
-    description:
-      "Systems capable of flexible, human-level reasoning across domains.",
+    description: "Human-level intelligence capable of general reasoning.",
+    keywords: ["agi", "general intelligence", "alignment"],
     sections: [
       {
         heading: "Definition",
         paragraphs: [
-          "AGI refers to intelligence that generalizes across tasks without retraining.",
-          "Unlike narrow AI, AGI adapts across domains."
+          "AGI systems generalize across domains without retraining.",
+          "They remain theoretical."
         ]
       },
       {
-        heading: "Risks and Control",
+        heading: "Risks",
         paragraphs: [
-          "AGI introduces unprecedented alignment and governance challenges.",
-          "Safe development remains an open research problem."
+          "Alignment and control are unsolved.",
+          "Uncontrolled AGI could pose systemic risks."
+        ]
+      }
+    ]
+  },
+
+  "quantum-computing": {
+    title: "Quantum Computing",
+    description: "Computation using quantum mechanical phenomena.",
+    keywords: ["quantum", "qubits", "superposition"],
+    sections: [
+      {
+        heading: "Principles",
+        paragraphs: [
+          "Qubits encode information probabilistically.",
+          "Entanglement enables non-classical computation."
+        ]
+      }
+    ]
+  },
+
+  "future-energy-systems": {
+    title: "Future Energy Systems",
+    description: "Next-generation energy generation and distribution.",
+    keywords: ["energy", "renewables", "grid"],
+    sections: [
+      {
+        heading: "Transition",
+        paragraphs: [
+          "Decarbonization drives system redesign.",
+          "Storage and coordination are critical."
+        ]
+      }
+    ]
+  },
+
+  "space-travel": {
+    title: "Space Travel",
+    description: "Human and robotic expansion beyond Earth.",
+    keywords: ["space", "rockets", "exploration"],
+    sections: [
+      {
+        heading: "Expansion",
+        paragraphs: [
+          "Space enables scientific and economic growth.",
+          "Life-support and autonomy are key challenges."
         ]
       }
     ]
