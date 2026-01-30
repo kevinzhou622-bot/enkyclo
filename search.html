@@ -82,31 +82,43 @@
   const input = document.getElementById("searchInput");
   const results = document.getElementById("results");
 
-  function render(query) {
-    results.innerHTML = "";
-    if (!query) return;
+function render(query) {
+  results.innerHTML = "";
+  if (!query) return;
 
-    const q = query.toLowerCase();
+  const q = query.toLowerCase();
+  let found = false;
 
-    Object.entries(ARTICLES).forEach(([id, article]) => {
-      const text = (
-        article.title +
-        " " +
-        (article.keywords || []).join(" ")
-      ).toLowerCase();
+  Object.entries(ARTICLES).forEach(([id, article]) => {
+    const text = (
+      article.title +
+      " " +
+      (article.keywords || []).join(" ")
+    ).toLowerCase();
 
-      if (text.includes(q)) {
-        const li = document.createElement("li");
-        li.innerHTML = `
-          <a href="article.html?id=${id}">
-            ${article.title}
-          </a>
-          <div class="meta">${(article.keywords || []).join(", ")}</div>
-        `;
-        results.appendChild(li);
-      }
-    });
+    if (text.includes(q)) {
+      found = true;
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <a href="article.html?id=${id}">
+          ${article.title}
+        </a>
+        <div class="meta">${(article.keywords || []).join(", ")}</div>
+      `;
+      results.appendChild(li);
+    }
+  });
+
+  if (!found) {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <div class="meta">
+        No article exists yet. Enkyclo is curated and growing.
+      </div>
+    `;
+    results.appendChild(li);
   }
+}
 
   input.addEventListener("input", e => render(e.target.value));
 </script>
