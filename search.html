@@ -2,46 +2,89 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Search — Enkyclo</title>
+<title>Intelligence, Science, and the Future — Enkyclo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body{margin:0;font-family:system-ui;background:#0f1220;color:#e6e8f0}
-header{text-align:center;padding:60px 20px;border-bottom:1px solid #222653}
-input{padding:14px;width:90%;max-width:520px;font-size:1rem;border-radius:8px;border:none}
-main{max-width:860px;margin:auto;padding:40px 20px}
-.result{padding:18px 0;border-bottom:1px solid #222653}
-.result a{color:#4f6bff;font-size:1.2rem;text-decoration:none}
-.message{color:#8c90b8;margin-top:30px}
+body{
+  margin:0;
+  font-family:system-ui;
+  background:#0f1220;
+  color:#e6e8f0;
+}
+header{
+  text-align:center;
+  padding:70px 20px 40px;
+  border-bottom:1px solid #222653;
+}
+h1{
+  font-size:2.4rem;
+  margin-bottom:10px;
+}
+header p{
+  color:#b7bbd9;
+}
+input{
+  margin-top:30px;
+  padding:16px;
+  width:90%;
+  max-width:520px;
+  font-size:1rem;
+  border-radius:8px;
+  border:none;
+}
+main{
+  max-width:860px;
+  margin:auto;
+  padding:50px 20px 120px;
+}
+.result{
+  padding:22px 0;
+  border-bottom:1px solid #222653;
+}
+.result a{
+  color:#4f6bff;
+  font-size:1.25rem;
+  text-decoration:none;
+}
+.result p{
+  color:#b7bbd9;
+  margin-top:8px;
+}
+.message{
+  color:#8c90b8;
+  margin-top:40px;
+  font-style:italic;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-  <h1>Search Enkyclo</h1>
-  <input id="query" placeholder="Search topics…" autofocus>
+  <h1>Intelligence, Science, and the Future</h1>
+  <p>Explore ideas shaping civilization</p>
+  <input id="query" placeholder="Search topics and concepts…" autofocus>
 </header>
 
 <main id="results"></main>
 
-<!-- THIS LINE IS CRITICAL -->
 <script src="data/articles.js"></script>
 
 <script>
 const input = document.getElementById("query");
 const results = document.getElementById("results");
 
-function show(msg){
-  results.innerHTML = `<p class="message">${msg}</p>`;
+function showMessage(text){
+  results.innerHTML = `<p class="message">${text}</p>`;
 }
 
-function search(){
+function runSearch(){
   const q = input.value.trim().toLowerCase();
   results.innerHTML = "";
 
   if(!q){
-    show("Type a topic to search.");
+    showMessage("Still curated — more topics will be added soon.");
     return;
   }
 
@@ -49,24 +92,34 @@ function search(){
 
   for(const id in ARTICLES){
     const a = ARTICLES[id];
-    const text = (a.title + " " + (a.keywords||[]).join(" ")).toLowerCase();
 
-    if(text.includes(q)){
+    const searchableText = (
+      id + " " +
+      a.title + " " +
+      (a.description || "") + " " +
+      (a.keywords || []).join(" ")
+    ).toLowerCase();
+
+    if(searchableText.includes(q)){
       found = true;
-      results.innerHTML += `
-        <div class="result">
-          <a href="article.html?id=${id}">${a.title}</a>
-        </div>`;
+
+      const div = document.createElement("div");
+      div.className = "result";
+      div.innerHTML = `
+        <a href="article.html?id=${id}">${a.title}</a>
+        <p>${a.description || ""}</p>
+      `;
+      results.appendChild(div);
     }
   }
 
   if(!found){
-    show(`No articles found for “${q}”.`);
+    showMessage("No matching articles yet — this encyclopedia is still being expanded.");
   }
 }
 
-input.addEventListener("input", search);
-show("Type a topic to search.");
+input.addEventListener("input", runSearch);
+showMessage("Still curated — more topics will be added soon.");
 </script>
 
 </body>
