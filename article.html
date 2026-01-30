@@ -4,45 +4,79 @@
 <meta charset="UTF-8">
 <title>Article — Enkyclo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-body{font-family:system-ui;background:#0f1220;color:#e6e8f0;padding:40px}
-h1{font-size:2.2rem}
-h2{margin-top:40px}
+body{
+  margin:0;
+  font-family:system-ui;
+  background:#0f1220;
+  color:#e6e8f0;
+  line-height:1.75;
+}
+header{
+  padding:70px 20px 40px;
+  text-align:center;
+  border-bottom:1px solid #222653;
+}
+main{
+  max-width:860px;
+  margin:auto;
+  padding:50px 20px 100px;
+}
+section{margin-bottom:48px}
+h1{font-size:2.6rem}
+h2{
+  font-size:1.5rem;
+  border-left:4px solid #4f6bff;
+  padding-left:12px;
+}
+footer{
+  text-align:center;
+  padding:40px;
+  color:#8c90b8;
+  border-top:1px solid #222653;
+}
 </style>
 </head>
+
 <body>
 
-<h1 id="title"></h1>
-<p id="desc"></p>
-<div id="content"></div>
+<header>
+  <h1 id="title">Loading…</h1>
+  <p id="description"></p>
+</header>
 
-<script src="./data/articles.js"></script>
+<main id="content"></main>
+
+<footer>© Enkyclo</footer>
+
+<!-- IMPORTANT: correct path -->
+<script src="data/articles.js"></script>
+
 <script>
 const params = new URLSearchParams(window.location.search);
 const id = params.get("id");
 
-console.log("ID:", id);
-console.log("ARTICLES:", ARTICLES);
-
-const article = ARTICLES[id];
-
-if (!article) {
-  document.body.innerHTML = "<h1>Article Not Found</h1>";
+if (!id || !ARTICLES[id]) {
+  document.getElementById("title").innerText = "Article Not Found";
+  document.getElementById("description").innerText =
+    "This topic has not been written yet.";
 } else {
-  document.getElementById("title").textContent = article.title;
-  document.getElementById("desc").textContent = article.description;
+  const article = ARTICLES[id];
+  document.getElementById("title").innerText = article.title;
+  document.getElementById("description").innerText = article.description || "";
 
-  const content = document.getElementById("content");
+  const main = document.getElementById("content");
+
   article.sections.forEach(sec => {
-    const h = document.createElement("h2");
-    h.textContent = sec.heading;
-    content.appendChild(h);
-
+    const s = document.createElement("section");
+    s.innerHTML = `<h2>${sec.heading}</h2>`;
     sec.paragraphs.forEach(p => {
       const para = document.createElement("p");
-      para.textContent = p;
-      content.appendChild(para);
+      para.innerText = p;
+      s.appendChild(para);
     });
+    main.appendChild(s);
   });
 }
 </script>
