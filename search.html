@@ -8,8 +8,8 @@
   <style>
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background-color: #0f1220;
+      font-family: system-ui;
+      background: #0f1220;
       color: #e6e8f0;
     }
 
@@ -70,130 +70,45 @@
 
 <header>
   <h1>Search Enkyclo</h1>
-  <input
-    id="searchInput"
-    type="text"
-    placeholder="Search topics, concepts, keywords"
-  />
+  <input id="searchInput" type="text" placeholder="Search topics, concepts">
 </header>
 
 <main>
   <ul id="results"></ul>
 </main>
 
+<script src="data/articles.js"></script>
 <script>
-  // =========================
-  // FINAL ARTICLE INDEX (10)
-  // =========================
-  const articles = [
-    {
-      title: "Artificial Intelligence",
-      url: "articles/artificial-intelligence.html",
-      keywords: [
-        "ai","machine learning","neural networks","automation","algorithms"
-      ]
-    },
-    {
-      title: "Artificial General Intelligence",
-      url: "articles/artificial-general-intelligence.html",
-      keywords: [
-        "agi","general intelligence","alignment","human level ai","safety"
-      ]
-    },
-    {
-      title: "Quantum Computing",
-      url: "articles/quantum-computing.html",
-      keywords: [
-        "quantum","qubits","superposition","entanglement","quantum algorithms"
-      ]
-    },
-    {
-      title: "Future Transportation",
-      url: "articles/future-transportation.html",
-      keywords: [
-        "transport","mobility","autonomous vehicles","self driving","infrastructure"
-      ]
-    },
-    {
-      title: "Space Travel",
-      url: "articles/space-travel.html",
-      keywords: [
-        "space","rockets","spacecraft","mars","interstellar"
-      ]
-    },
-    {
-      title: "Future Energy Systems",
-      url: "articles/future-energy-systems.html",
-      keywords: [
-        "energy","renewables","power grid","energy storage","electricity"
-      ]
-    },
-    {
-      title: "Human–Machine Interaction",
-      url: "articles/human-machine-interaction.html",
-      keywords: [
-        "hci","interfaces","augmentation","human ai","cognition"
-      ]
-    },
-    {
-      title: "Computational Biology",
-      url: "articles/computational-biology.html",
-      keywords: [
-        "biology","bioinformatics","protein folding","genomics","ai biology"
-      ]
-    },
-    {
-      title: "Technological Singularity",
-      url: "articles/technological-singularity.html",
-      keywords: [
-        "singularity","exponential growth","intelligence explosion","future"
-      ]
-    },
-    {
-      title: "Autonomous Systems",
-      url: "articles/autonomous-systems.html",
-      keywords: [
-        "autonomous","robots","agents","control systems","self operating"
-      ]
-    }
-  ];
-
-  // =========================
-  // SEARCH LOGIC
-  // =========================
-  const params = new URLSearchParams(window.location.search);
   const input = document.getElementById("searchInput");
   const results = document.getElementById("results");
-
-  const initialQuery = params.get("q") || "";
-  input.value = initialQuery;
-
-  function matches(article, query) {
-    const q = query.toLowerCase();
-    return (
-      article.title.toLowerCase().includes(q) ||
-      article.keywords.some(k => k.toLowerCase().includes(q))
-    );
-  }
 
   function render(query) {
     results.innerHTML = "";
     if (!query) return;
 
-    articles
-      .filter(a => matches(a, query))
-      .forEach(a => {
+    const q = query.toLowerCase();
+
+    Object.entries(ARTICLES).forEach(([id, article]) => {
+      const text = (
+        article.title +
+        " " +
+        (article.keywords || []).join(" ")
+      ).toLowerCase();
+
+      if (text.includes(q)) {
         const li = document.createElement("li");
         li.innerHTML = `
-          <a href="${a.url}">${a.title}</a>
-          <div class="meta">${a.keywords.join(", ")}</div>
+          <a href="article.html?id=${id}">
+            ${article.title}
+          </a>
+          <div class="meta">${(article.keywords || []).join(", ")}</div>
         `;
         results.appendChild(li);
-      });
+      }
+    });
   }
 
-  input.addEventListener("input", () => render(input.value));
-  render(initialQuery);
+  input.addEventListener("input", e => render(e.target.value));
 </script>
 
 </body>
