@@ -1,1 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Article — Enkyclo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui;
+      background: #0f1220;
+      color: #e6e8f0;
+      line-height: 1.75;
+    }
+
+    header {
+      padding: 70px 20px 40px;
+      text-align: center;
+      border-bottom: 1px solid #222653;
+    }
+
+    main {
+      max-width: 860px;
+      margin: auto;
+      padding: 50px 20px 100px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      border-left: 4px solid #4f6bff;
+      padding-left: 12px;
+      margin-top: 50px;
+    }
+
+    p {
+      margin-top: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1 id="title"></h1>
+  <p id="description"></p>
+</header>
+
+<main id="content"></main>
+
+<script src="data/articles.js"></script>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
+  const article = ARTICLES[id];
+
+  if (!article) {
+    document.getElementById("content").innerHTML =
+      "<p>Article not found.</p>";
+  } else {
+    document.title = article.title + " — Enkyclo";
+    document.getElementById("title").textContent = article.title;
+    document.getElementById("description").textContent = article.description;
+
+    const container = document.getElementById("content");
+    article.sections.forEach(sec => {
+      const h2 = document.createElement("h2");
+      h2.textContent = sec.heading;
+      container.appendChild(h2);
+
+      sec.paragraphs.forEach(p => {
+        const para = document.createElement("p");
+        para.textContent = p;
+        container.appendChild(para);
+      });
+    });
+  }
+</script>
+
+</body>
+</html>
