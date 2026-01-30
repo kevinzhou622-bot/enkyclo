@@ -1,15 +1,51 @@
-const ARTICLES = {
-  "quantum-computing": {
-    title: "Quantum Computing",
-    description: "Computation using quantum mechanical phenomena.",
-    sections: [
-      {
-        heading: "Overview",
-        paragraphs: [
-          "Quantum computing uses superposition and entanglement.",
-          "It enables new computational paradigms."
-        ]
-      }
-    ]
-  }
-};
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Article — Enkyclo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{font-family:system-ui;background:#0f1220;color:#e6e8f0;padding:40px}
+h1{font-size:2.2rem}
+h2{margin-top:40px}
+</style>
+</head>
+<body>
+
+<h1 id="title"></h1>
+<p id="desc"></p>
+<div id="content"></div>
+
+<script src="./data/articles.js"></script>
+<script>
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+console.log("ID:", id);
+console.log("ARTICLES:", ARTICLES);
+
+const article = ARTICLES[id];
+
+if (!article) {
+  document.body.innerHTML = "<h1>Article Not Found</h1>";
+} else {
+  document.getElementById("title").textContent = article.title;
+  document.getElementById("desc").textContent = article.description;
+
+  const content = document.getElementById("content");
+  article.sections.forEach(sec => {
+    const h = document.createElement("h2");
+    h.textContent = sec.heading;
+    content.appendChild(h);
+
+    sec.paragraphs.forEach(p => {
+      const para = document.createElement("p");
+      para.textContent = p;
+      content.appendChild(para);
+    });
+  });
+}
+</script>
+
+</body>
+</html>
