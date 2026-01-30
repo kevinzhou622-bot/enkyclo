@@ -2,76 +2,51 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Enkyclo — A Modern Encyclopedia</title>
+  <title>Enkyclo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background-color: #0f1220;
+      background: #0f1220;
       color: #e6e8f0;
-      line-height: 1.6;
     }
 
     header {
-      padding: 70px 20px 40px;
+      padding: 90px 20px 60px;
       text-align: center;
     }
 
-    header h1 {
+    h1 {
       font-size: 3rem;
-      margin-bottom: 12px;
+      margin-bottom: 16px;
       font-weight: 600;
     }
 
-    header p {
+    p {
+      max-width: 720px;
+      margin: 0 auto 40px;
       color: #b7bbd9;
       font-size: 1.1rem;
-      max-width: 600px;
-      margin: 0 auto 25px;
     }
 
-    input[type="text"] {
+    input {
       width: 90%;
-      max-width: 520px;
-      padding: 14px;
-      font-size: 1rem;
-      border-radius: 8px;
+      max-width: 560px;
+      padding: 16px;
+      font-size: 1.05rem;
+      border-radius: 10px;
       border: none;
       outline: none;
     }
 
-    main {
-      max-width: 900px;
-      margin: auto;
-      padding: 30px 20px 80px;
-    }
-
-    h2 {
-      font-size: 1.4rem;
-      margin-bottom: 20px;
-    }
-
-    .card {
-      background-color: #181c35;
-      padding: 22px;
-      border-radius: 12px;
-      margin-bottom: 18px;
-    }
-
-    .card strong {
-      font-size: 1.05rem;
-    }
-
-    a {
-      color: #9aa3ff;
-      text-decoration: none;
-      font-size: 0.95rem;
-    }
-
-    a:hover {
-      text-decoration: underline;
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 0.85rem;
+      color: #8c90b8;
+      border-top: 1px solid #222653;
     }
   </style>
 </head>
@@ -80,35 +55,34 @@
 
 <header>
   <h1>Enkyclo</h1>
-  <p>A modern, searchable encyclopedia of science, technology, and the future.</p>
+  <p>
+    A curated encyclopedia of science, technology, and the future.
+  </p>
 
   <input
+    id="searchInput"
     type="text"
-    placeholder="Search Enkyclo articles"
-    onkeydown="if(event.key==='Enter'){window.location.href='search.html?q='+encodeURIComponent(this.value)}"
+    placeholder="Search ideas, concepts, systems"
   />
 </header>
 
-<main>
+<footer>
+  © Enkyclo
+</footer>
 
-  <h2>Suggested articles</h2>
+<script>
+  const input = document.getElementById("searchInput");
 
-  <div class="card">
-    <strong>Future Transportation</strong><br>
-    <a href="articles/future-transportation.html">Read article</a>
-  </div>
-
-  <div class="card">
-    <strong>Artificial Intelligence</strong><br>
-    <a href="articles/artificial-intelligence.html">Read article</a>
-  </div>
-
-  <div class="card">
-    <strong>Space Exploration</strong><br>
-    <a href="articles/space-exploration.html">Read article</a>
-  </div>
-
-</main>
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      const query = input.value.trim();
+      if (query) {
+        window.location.href =
+          "search.html?q=" + encodeURIComponent(query);
+      }
+    }
+  });
+</script>
 
 </body>
 </html>
