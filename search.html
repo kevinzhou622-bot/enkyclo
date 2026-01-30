@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>Search — Enkyclo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
 body {
   margin: 0;
@@ -11,38 +12,51 @@ body {
   background: #0f1220;
   color: #e6e8f0;
 }
+
 header {
-  padding: 50px 20px;
+  padding: 60px 20px 30px;
   text-align: center;
   border-bottom: 1px solid #222653;
 }
+
 input {
-  width: 100%;
+  width: 90%;
   max-width: 520px;
   padding: 14px;
   font-size: 1rem;
   border-radius: 8px;
   border: none;
 }
+
 main {
   max-width: 860px;
   margin: auto;
-  padding: 40px 20px;
+  padding: 40px 20px 100px;
 }
+
 .result {
-  padding: 16px;
+  padding: 18px 0;
   border-bottom: 1px solid #222653;
-  cursor: pointer;
 }
-.result:hover {
-  background: #171a3a;
+
+.result a {
+  color: #4f6bff;
+  font-size: 1.2rem;
+  text-decoration: none;
 }
-.note {
+
+.result p {
   color: #b7bbd9;
+  margin-top: 6px;
+}
+
+#message {
+  color: #8c90b8;
   margin-top: 30px;
 }
 </style>
 </head>
+
 <body>
 
 <header>
@@ -50,71 +64,52 @@ main {
   <input id="query" placeholder="Search topics…" autofocus>
 </header>
 
-<main id="results">
-  <div class="note">Type and press Enter.</div>
-</main>
+<main id="results"></main>
+
+<script src="data/articles.js"></script>
 
 <script>
-const ARTICLES = [
-  {
-    title: "Artificial Intelligence",
-    path: "/articles/artificial-intelligence.html",
-    keywords: ["ai", "artificial intelligence", "machine learning"]
-  },
-  {
-    title: "Artificial General Intelligence",
-    path: "/articles/artificial-general-intelligence.html",
-    keywords: ["agi", "general intelligence", "alignment"]
-  },
-  {
-    title: "Quantum Computing",
-    path: "/articles/quantum-computing.html",
-    keywords: ["quantum", "qubits"]
-  },
-  {
-    title: "Future Transportation",
-    path: "/articles/future-transportation.html",
-    keywords: ["transportation", "future travel"]
-  },
-  {
-    title: "Space Travel",
-    path: "/articles/space-travel.html",
-    keywords: ["space", "rockets", "exploration"]
-  }
-];
-
 const input = document.getElementById("query");
 const results = document.getElementById("results");
 
-input.addEventListener("keydown", e => {
-  if (e.key !== "Enter") return;
-
-  const q = input.value.toLowerCase().trim();
+function search() {
+  const q = input.value.trim().toLowerCase();
   results.innerHTML = "";
 
   if (!q) {
-    results.innerHTML = `<div class="note">Please enter a search term.</div>`;
+    results.innerHTML = "<p id='message'>Type a topic to search.</p>";
     return;
   }
 
-  const matches = ARTICLES.filter(a =>
-    a.title.toLowerCase().includes(q) ||
-    a.keywords.some(k => k.includes(q))
-  );
+  let found = false;
 
-  if (!matches.length) {
-    results.innerHTML = `<div class="note">No results found for “${q}”.</div>`;
-    return;
+  for (const id in ARTICLES) {
+    const a = ARTICLES[id];
+    const text = (
+      a.title +
+      " " +
+      (a.keywords || []).join(" ")
+    ).toLowerCase();
+
+    if (text.includes(q)) {
+      found = true;
+
+      const div = document.createElement("div");
+      div.className = "result";
+      div.innerHTML = `
+        <a href="article.html?id=${id}">${a.title}</a>
+        <p>${a.description || ""}</p>
+      `;
+      results.appendChild(div);
+    }
   }
 
-  matches.forEach(a => {
-    const div = document.createElement("div");
-    div.className = "result";
-    div.textContent = a.title;
-    div.onclick = () => window.location.href = a.path;
-    results.appendChild(div);
-  });
-});
+  if (!found) {
+    results.innerHTML = "<p id='message'>No articles found.</p>";
+  }
+}
+
+input.addEventListener("input", search);
 </script>
 
 </body>
